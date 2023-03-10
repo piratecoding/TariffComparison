@@ -6,14 +6,14 @@ class Tariff
     public double AnnualCost { get; set; }
 }
 
-class TariffCalculation
+class TariffCalculations
 {    public static double CalculateBasicTariff(double consumption)
     {
         var calc = 5 * 12 + 0.22 * consumption;
         return calc;
     }
 
-    public static double CalculatePackageTariff(double consumption)
+    public static double CalculatePackagedTariff(double consumption)
     {
         if (consumption > 4000)
         {
@@ -33,7 +33,7 @@ class Helpers
     {
         var list = new List<Tariff>();
         list.Add(new Tariff { TariffName = "Basic", AnnualCost = basic });
-        list.Add(new Tariff { TariffName = "Package", AnnualCost = package });
+        list.Add(new Tariff { TariffName = "Packaged", AnnualCost = package });
         return list.OrderBy(d => d.AnnualCost).ToList();
     }
 
@@ -72,8 +72,8 @@ class TariffCalculator
             if (isValidInput)
             {
                 double consumption = Double.Parse(input);
-                double basicTariff = TariffCalculation.CalculateBasicTariff(consumption);
-                double packageTariff = TariffCalculation.CalculatePackageTariff(consumption);
+                double basicTariff = TariffCalculations.CalculateBasicTariff(consumption);
+                double packageTariff = TariffCalculations.CalculatePackagedTariff(consumption);
                 var list = Helpers.SortTariffs(basicTariff, packageTariff);
                 var table = Helpers.GenerateTable(list);
                 Console.WriteLine(table);
